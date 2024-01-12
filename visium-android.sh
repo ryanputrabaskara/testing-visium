@@ -6,11 +6,21 @@ set -x
 #!/bin/bash
 
 # Check if Homebrew is installed
-if ! command -v brew &> /dev/null; then
-    echo "Homebrew is not installed. Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# if ! command -v brew &> /dev/null; then
+#     echo "Homebrew is not installed. Installing Homebrew..."
+#     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# else
+#     echo "Homebrew is already installed."
+# fi
+#!/bin/bash
+
+# Check if Homebrew is installed
+if command -v brew &> /dev/null; then
+    # Get Homebrew version and display it
+    brew_version=$(brew --version)
+    echo "Homebrew version: $brew_version"
 else
-    echo "Homebrew is already installed."
+    echo "Homebrew is not installed. Please install it first."
 fi
 
 # Install jq using Homebrew
