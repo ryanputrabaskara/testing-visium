@@ -6,25 +6,17 @@ set -x
 #!/bin/bash
 
 # Check if Homebrew is installed
-if ! command -v brew &> /dev/null; then
-    echo "Homebrew is not installed. Installing Homebrew..."
+#!/bin/bash
+
+# Check if Homebrew is installed, if not, install it
+if ! command -v brew &> /dev/null
+then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-else
-    echo "Homebrew is already installed."
 fi
 
 # Install jq using Homebrew
-if command -v jq &> /dev/null; then
-    echo "jq is already installed."
-else
-    echo "Installing jq using Homebrew..."
-    brew install jq
-    if [ $? -eq 0 ]; then
-        echo "jq has been successfully installed."
-    else
-        echo "Failed to install jq. Please install it manually."
-    fi
-fi
+brew install jq
+
 
 
 # Step 2: Get all device IDs of Android
