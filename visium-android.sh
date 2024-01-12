@@ -3,25 +3,29 @@ set -x
 
 # Step 1: Check and install jq
 # Check if jq is installed
-if ! command jq --version &> /dev/null; then
-    echo "jq is not installed. Installing..."
+#!/bin/bash
 
-    # Install jq using Homebrew
-    if command brew --version &> /dev/null; then
-        brew install jq
-        if command jq --version &> /dev/null; then
-            echo "jq has been successfully installed."
-        else
-            echo "Failed to install jq. Please install it manually."
-            exit 1
-        fi
-    else
-        echo "Homebrew is not installed. Please install Homebrew first."
-        exit 1
-    fi
+# Check if Homebrew is installed
+if ! command -v brew &> /dev/null; then
+    echo "Homebrew is not installed. Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
-    echo "jq is already installed."
+    echo "Homebrew is already installed."
 fi
+
+# Install jq using Homebrew
+if command -v jq &> /dev/null; then
+    echo "jq is already installed."
+else
+    echo "Installing jq using Homebrew..."
+    brew install jq
+    if [ $? -eq 0 ]; then
+        echo "jq has been successfully installed."
+    else
+        echo "Failed to install jq. Please install it manually."
+    fi
+fi
+
 
 # Step 2: Get all device IDs of Android
 # Make the GET request and capture the JSON response
