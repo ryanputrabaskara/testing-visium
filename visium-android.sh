@@ -5,17 +5,21 @@ set -x
 # Check if jq is installed
 #!/bin/bash
 
-# Check if jq is installed
-if command -v jq &> /dev/null; then
-    # macOS version
-    if [[ "$(uname -s)" == "Darwin" ]]; then
-        jq --version
+# Check if Homebrew is installed
+if command -v brew &> /dev/null; then
+    # Check if jq is installed
+    if brew list --formula | grep -q 'jq'; then
+        # Get jq version and display it
+        jq_version=$(jq --version)
+        echo "jq version: $jq_version"
+
+        # Perform additional tasks using jq, for example:
+        cat data.json | jq '.name'
     else
-        # Linux version
-        jq -v
+        echo "jq is not installed. Please install it using 'brew install jq'."
     fi
 else
-    echo "jq is not installed. Please install jq first."
+    echo "Homebrew is not installed. Please install Homebrew first."
 fi
 
 
