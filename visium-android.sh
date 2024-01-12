@@ -7,23 +7,17 @@ set -x
 
 # Check if jq is installed
 if command -v jq &> /dev/null; then
-    echo "jq is already installed."
-else
-    echo "Failed to find jq. Attempting to install it..."
-
-    # Check if Homebrew is installed
-    if command -v brew &> /dev/null; then
-        # Install jq using Homebrew
-        brew install jq
-        if [ $? -eq 0 ]; then
-            echo "jq has been successfully installed."
-        else
-            echo "Failed to install jq. Please install it manually."
-        fi
+    # macOS version
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+        jq --version
     else
-        echo "Homebrew is not installed. Please install Homebrew and then install jq manually."
+        # Linux version
+        jq -v
     fi
+else
+    echo "jq is not installed. Please install jq first."
 fi
+
 
 
 # step 2: get all devide id of Android
