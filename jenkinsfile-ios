@@ -1,0 +1,11 @@
+pipeline {
+    agent any
+    stages {
+        stage('Call API') {
+            steps {
+                sh 'chmod oug+x ./visium-ios.sh'
+                sh './visium-ios.sh'
+            }
+        }
+    }
+}
